@@ -19,3 +19,13 @@ docker-build:
 
 migrate:
 	docker-compose run --rm php-cli php artisan migrate
+
+chmod:
+	docker-compose run --rm php-cli chmod 777 . -R
+
+clear:
+	docker-compose run --rm php-cli php artisan optimize:clear
+
+test:
+	docker-compose run --rm php-cli php artisan test
+

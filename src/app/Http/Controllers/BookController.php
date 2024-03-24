@@ -40,7 +40,7 @@ class BookController extends Controller
      * Отображает конкретную запись
      * Принимает id этой новости и отображает её
      */
-    public function show($id)
+    public function show(string $id)
     {
         return "Show book by " . $id;
     }

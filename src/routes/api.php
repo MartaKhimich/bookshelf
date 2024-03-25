@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CommentController;
@@ -16,11 +17,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::resource('books', BookController::class);
 
-Route::resource('authors', AuthorController::class);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::resource('comments', CommentController::class);
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::resource('books', BookController::class);
+
+    Route::resource('authors', AuthorController::class);
+
+    Route::resource('comments', CommentController::class);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

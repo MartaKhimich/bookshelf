@@ -1,6 +1,6 @@
 up: docker-up
 down: docker-down
-init: docker-down-clear docker-pull docker-build docker-up
+init: docker-down-clear docker-pull docker-build docker-up app-init
 
 docker-up:
 	docker-compose up -d
@@ -28,4 +28,15 @@ clear:
 
 test:
 	docker-compose run --rm php-cli php artisan test
+
+app-init:
+	docker-compose run --rm php-cli composer install
+	docker-compose run --rm php-cli chown root:www-data -R storage/
+	docker-compose run --rm php-cli chmod 777 -R storage/
+	docker-compose run --rm php-cli cp .env.example .env
+	docker-compose run --rm php-cli php artisan key:generate
+	docker-compose run --rm php-cli php artisan migrate --seed
+
+postman:
+	docker-compose run --rm php-cli php artisan dev:postman api 1
 

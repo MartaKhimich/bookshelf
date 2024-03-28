@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateBookRequest;
+use App\Http\Resources\BookResource;
+use App\Models\Book;
+use App\Traits\HttpRes;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    use HttpRes;
+
     /**
      * Display a listing of the resource.
      * Отображает данные (условно весь список книг)
@@ -30,9 +36,17 @@ class BookController extends Controller
      * Store a newly created resource in storage.
      * Получаем данные из формы создания книг
      */
-    public function store(Request $request)
+    public function store(CreateBookRequest $request)
     {
+        $storeArr = [
+            'title' =>  $request->title,
+            'description' => $request->description,
+        ];
 
+        $data = Book::create($storeArr);
+        $book = BookResource::collection(Book::where('id', $data->id)->get());
+
+        return $this->success(201, 'Book Added Successfully', $book[0]);
     }
 
     /**

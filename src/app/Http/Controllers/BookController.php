@@ -75,7 +75,12 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        return "Show book by " . $id;
+        //получения информации о конкретной книге
+        //с её авторами и комментариями
+
+        $book = Book::with(['authors', 'comments'])
+            ->where('id', $id)->get();
+        return $this->success(200, "Show book with ID " . $id, $book[0]);
     }
 
     /**

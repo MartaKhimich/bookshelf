@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
@@ -24,18 +25,8 @@ class Book extends Model
         );
     }
 
-    //        метод index в BookController фильтрация по нескольким авторам
-
-    //        $querySearch = $request->input('last_name', []);
-    //        //dd($querySearch);
-    //        $result = Book::with(['authors'])->when(!empty($querySearch), function ($q) use ($querySearch) {
-    //                $q->whereHas('authors', function($q) use ($querySearch) {
-    //                    foreach($querySearch as $last_name) {
-    //                        $q->orWhere('last_name', '=', $last_name);
-    //                    }
-    //            });
-    //        })
-    //            ->toSql();
-    //
-    //        return collect($result);
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

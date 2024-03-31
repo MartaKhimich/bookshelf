@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Book;
+use App\Models\Author;
 
 return new class extends Migration
 {
@@ -13,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('book_author', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')
-                ->constrained('books');
-            $table->foreignId('author_id')
-                ->constrained('authors');
+            $table->foreignIdFor(Book::class)->constrained('books');
+            $table->foreignIdFor(Author::class)->constrained('authors');
+            $table->unique(['book_id', 'author_id']);
         });
     }
 

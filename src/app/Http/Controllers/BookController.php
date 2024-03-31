@@ -18,9 +18,28 @@ class BookController extends Controller
      * Display a listing of the resource.
      * Отображает данные (условно весь список книг)
      */
-    public function index()
+    public function index(Request $request)
     {
-        return "Show books list";
+        //метод index в BookController фильтрация по одному автору
+
+//        $result = Book::with(['authors'])
+//            ->whereHas('authors', function($q) use ($request) {
+//                $q->where('last_name', '=', $request->input('last_name'));
+//            })
+//            ->get();
+//
+//        return collect($result);
+
+        //метод index в BookController фильтрация по нескольким авторам
+
+        $authors = $request->input('last_name', []);
+        $result = Book::with(['authors'])->when(!empty($authors), function ($q) use ($authors) {
+            $q->whereHas('authors', function($q) use ($authors) {
+                $q->whereIn('last_name', $authors);
+            });
+        })
+            ->get();
+        return collect($result);
     }
 
     /**

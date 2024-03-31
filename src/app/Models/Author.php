@@ -14,4 +14,15 @@ class Author extends Model
         'last_name',
         'description'
     ];
+
+
+    public function books()
+    {
+        return $this->belongsToMany(
+            Book::class,
+            'book_author',
+            'author_id',
+            'book_id'
+        );
+    }
 }

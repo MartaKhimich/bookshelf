@@ -14,6 +14,7 @@ class AuthorController extends Controller
 
     /**
      * Display a listing of the resource.
+     * Отображает данные (условно весь список авторов)
      */
     public function index()
     {
@@ -22,6 +23,7 @@ class AuthorController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * Отображение формы создания нового автора
      */
     public function create()
     {
@@ -30,6 +32,7 @@ class AuthorController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * Получаем данные из формы создания автора
      */
     public function store(CreateAuthorRequest $request)
     {
@@ -47,6 +50,8 @@ class AuthorController extends Controller
 
     /**
      * Display the specified resource.
+     * Отображает конкретную запись
+     * Принимает id этого автора и отображает его
      */
     public function show(string $id)
     {
@@ -55,6 +60,7 @@ class AuthorController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * Отображает форму редактирования автора
      */
     public function edit(string $id)
     {
@@ -63,6 +69,7 @@ class AuthorController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * Данный метод сохраняет данные из формы edit
      */
     public function update(Request $request, string $id)
     {
@@ -71,6 +78,7 @@ class AuthorController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * Метод удаляет данные из формы edit
      */
     public function destroy(string $id)
     {

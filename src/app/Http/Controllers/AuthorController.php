@@ -55,7 +55,12 @@ class AuthorController extends Controller
      */
     public function show(string $id)
     {
-        return "Show author with " . $id;
+        //метод show для получения информации
+        //о конкретном авторе со списком его книг
+
+        $author = Author::with(['books'])
+            ->where('id', $id)->get();
+        return $this->success('200', "Show author with ID " . $id, $author[0]);
     }
 
     /**

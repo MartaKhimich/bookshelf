@@ -30,6 +30,7 @@ class BookController extends Controller
 //
 //        return collect($result);
 
+
         //метод index в BookController фильтрация по нескольким авторам
 
         $authors = $request->input('last_name', []);
@@ -107,6 +108,14 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
+        $book = Book::find($id);
+
+        if (!$book) {
+            return $this->error(404, 'Book not found');
+        } else {
+            $book->destroy($id);
+            return $this->success(200, 'Book Deleted Successfully', []);
+        }
 
     }
 }

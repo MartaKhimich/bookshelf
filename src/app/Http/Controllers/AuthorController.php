@@ -85,8 +85,15 @@ class AuthorController extends Controller
      * Remove the specified resource from storage.
      * Метод удаляет данные из формы edit
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $author = Author::find($id);
+
+        if (!$author) {
+            return $this->error(404, 'Author not found');
+        } else {
+            $author->destroy($id);
+            return $this->success(200, 'Author Deleted Successfully', []);
+        }
     }
 }

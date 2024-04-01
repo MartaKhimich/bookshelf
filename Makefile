@@ -40,3 +40,6 @@ app-init:
 postman:
 	docker-compose run --rm php-cli php artisan dev:postman api 1
 
+db:
+	docker-compose run --rm php-cli php artisan migrate:fresh --seed
+

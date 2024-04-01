@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class)
                 ->constrained('users');
             $table->foreignIdFor(Book::class)
-                ->constrained('books');
+                ->constrained('books')
+                ->onDelete('cascade');
             $table->string('description', 5000);
             $table->timestamps();
         });

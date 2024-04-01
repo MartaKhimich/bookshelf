@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -9,9 +10,13 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //вывод комментариев с user_name и пагинацией
+
+        $comments = Comment::with(['user:id,name'])->paginate(10);
+
+        return collect( $comments);
     }
 
     /**
